@@ -28,5 +28,5 @@ app.get("/api/v1/product/:id", (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log("Server is runninggggg ", PORT);
+  console.log("Server is running", PORT);
 });
