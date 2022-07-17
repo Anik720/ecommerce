@@ -1,5 +1,5 @@
 const express = require("express");
-const products = require("./products");
+const products = require("./data/products");
 const colors=require("colors")
 require("dotenv").config();
 
@@ -8,7 +8,7 @@ const connetDB =require("./config/db")
 
 connetDB()
 const app = express();
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 5000;
 app.use(express.json());
 app.get("/api/v1/product", (req, res) => {
   res.status(200).json({
