@@ -1,31 +1,19 @@
 const express = require("express");
 const products = require("./data/products");
-const colors=require("colors")
+const colors = require("colors");
+const productRoutes = require("./routes/productRoutes");
+const { notFound, errorHandler } = require("./middlewares/errorMiddlewares");
 require("dotenv").config();
 
+const connetDB = require("./config/db");
 
-const connetDB =require("./config/db")
-
-connetDB()
+connetDB();
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 6000;
 app.use(express.json());
-app.get("/api/v1/product", (req, res) => {
-  res.status(200).json({
-    message: "Success",
-    data: products,
-  });
-});
-app.get("/api/v1/product/:id", (req, res) => {
-  console.log(products.products);
-  const product = products.products.find(
-    (product) => product._id === req.params.id
-  );
-  res.status(200).json({
-    message: "Success",
-    data: product,
-  });
-});
+app.use("/api/v1/product", productRoutes);
+app.use(notFound);
+app.use(errorHandler);
 
 app.listen(PORT, () => {
   console.log("Server is running", PORT);
